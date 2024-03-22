@@ -15,6 +15,5 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "knplabs/knp-menu": "^3.4"
     }
 }
