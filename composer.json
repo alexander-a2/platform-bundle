@@ -1,0 +1,20 @@
+{
+    "name": "alexander-a2/platform-bundle",
+    "type": "symfony-pack",
+    "license": "MIT",
+    "description": "A2 Platform bundle for Symfony",
+    "autoload": {
+        "psr-4": {
+            "AlexanderA2\\PlatformBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexander A2"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "knplabs/knp-menu": "^3.4"
+    }
+}

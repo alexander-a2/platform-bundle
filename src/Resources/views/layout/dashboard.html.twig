@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block meta_title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{#        <link href="{{ asset('bundles/admin/libs/selectpicker/bootstrap-select.min.css') }}" rel="stylesheet">#}
+{#        <link href="{{ asset('bundles/basics/libs/datepicker/jquery.datetimepicker.min.css') }}" rel="stylesheet">#}
+{#        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">#}
+
+    {% endblock %}
+
+    {% block meta_tags %}{% endblock %}
+
+</head>
+<body class="{% block body_classes %}d-flex flex-column h-100{% endblock %}">
+
+<header>
+    <nav class="navbar navbar-expand-md fixed-top {% block navbar_classes %}bg-dark navbar-dark{% endblock %}">
+        <div class="container-fluid px-3">
+            <a class="navbar-brand"
+               href="{% block navbar_brand_url %}{% endblock %}">{% block navbar_brand_title %}&nbsp;{% endblock %}</a>
+            <button id="admin_sidebar_toggle_control" class="navbar-toggler p-2" data-bs-toggle="collapse"
+                    href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor"
+                     viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid pb-0 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto mt-5 pt-0 px-0">
+    <div class="row flex-grow-sm-1 flex-grow-0 w-100 no-gutters">
+        <aside id="collapseExample"
+               class="collapse col-sm-4 col-md-3 col-lg-2 d-sm-block flex-grow-sm-1 flex-shrink-1 flex-grow-0 sticky-top pb-sm-0">
+            <div class="h-100 sticky-top {% block sidebar_classes %}bg-light{% endblock %}">
+                {% block page_sidebar %}{% endblock %}
+            </div>
+        </aside>
+        <main class="col overflow-auto h-100">
+            {% block page_body %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+{% block footer %}
+    <footer class="footer mt-auto{% block footer_classes %} bg-light border-top{% endblock %}">
+        {% block footer_content %}&nbsp;{% endblock %}
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+{#    <script src="{{ asset('bundles/admin/libs/jquery-3.6.3/jquery-3.6.3.min.js') }}"></script>#}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+{#    <script src="{{ asset('bundles/admin/libs/selectpicker/bootstrap-select.min.js') }}"></script>#}
+{#    <script src="{{ asset('bundles/basics/libs/datepicker/jquery.datetimepicker.full.min.js') }}"></script>#}
+{% endblock %}
+
+</body>
+</html>
