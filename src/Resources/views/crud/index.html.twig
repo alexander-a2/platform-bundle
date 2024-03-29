@@ -1,0 +1,18 @@
+{% extends '@Platform/admin/layout.html.twig' %}
+
+{% block page_title %}
+    {{ pageTitle }}
+{% endblock %}
+
+{% block page_content %}
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <a href="{{ path('admin_crud_edit', {'entityClassName': entityClassName}) }}"
+               id="admin-entity-crud-add"
+               class="btn btn-success">{{ 'a2platform.admin.controls.add'|trans }}</a>
+        </div>
+        <div class="col-md-6 text-right">
+        </div>
+    </div>
+    {{ datasheet(entityDatasheet) }}
+{% endblock %}

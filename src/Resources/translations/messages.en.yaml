@@ -1,5 +1,22 @@
-website:
-  menu:
-    general:
-      title: 'General'
-      whats_inside: 'What’s inside'
+a2platform:
+  admin:
+    menu:
+      database:
+        title: 'Database'
+    controls:
+      add: 'Add'
+      back: 'Back'
+      edit: 'Edit'
+      delete: 'Delete'
+      save: 'Save'
+    confirm:
+      are_you_sure: 'Are you sure?'
+    crud:
+      index:
+        page_title: 'List of «%entityName%»'
+      view:
+        page_title: '«%entityName%» #%entityId%'
+      create:
+        page_title: 'Create new «%entityName%»'
+      edit:
+        page_title: 'Edit «%entityName%» #%entityId%'

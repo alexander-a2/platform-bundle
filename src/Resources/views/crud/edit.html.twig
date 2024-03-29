@@ -1,0 +1,35 @@
+{% extends '@Platform/admin/layout.html.twig' %}
+
+{% block page_title %}
+    {{ pageTitle }}
+{% endblock %}
+
+{% block page_content %}
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <a href="javascript:history.back()"
+               class="btn btn-secondary">&larr; {{ 'a2platform.admin.controls.back'|trans }}</a>
+        </div>
+        <div class="col-md-6 text-right">
+            {% if entityId %}
+                <a href="{{ path('admin_crud_delete', {'entityClassName': entityClassName, 'entityId': entityId}) }}"
+                   class="btn btn-danger"
+                   onClick="if(!confirm('{{ 'a2platform.admin.confirm.are_you_sure'|trans }}')){return false;}">{{ 'a2platform.admin.controls.delete'|trans }}</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="admin-entity-crud-edit-form">
+        {{ form_start(form) }}
+        <table class="table table-bordered table-hover table-striped">
+            {% for child in form.children %}
+                <tr>
+                    <td width="200"><b>{{ form_label(child) }}</b></td>
+                    <td>{{ form_widget(child) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

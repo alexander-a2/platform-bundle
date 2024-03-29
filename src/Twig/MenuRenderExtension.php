@@ -2,13 +2,11 @@
 
 namespace AlexanderA2\PlatformBundle\Twig;
 
-use AlexanderA2\PlatformBundle\Event\MenuBuildEvent;
+use AlexanderA2\PlatformBundle\Builder\MenuBuilder;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Matcher;
-use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
 use Knp\Menu\Renderer\TwigRenderer;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -16,8 +14,8 @@ use Twig\TwigFunction;
 class MenuRenderExtension extends AbstractExtension
 {
     public function __construct(
-        protected EventDispatcherInterface $eventDispatcher,
         protected Environment              $twig,
+        protected MenuBuilder              $menuBuilder,
     ) {
     }
 
@@ -32,10 +30,7 @@ class MenuRenderExtension extends AbstractExtension
 
     public function buildMenu(string $name): ItemInterface
     {
-        $event = new MenuBuildEvent($name, (new MenuFactory())->createItem($name));
-        $this->eventDispatcher->dispatch($event);
-
-        return $event->getMenu();
+        return $this->menuBuilder->build($name);
     }
 
     public function renderMenu(ItemInterface $menu): string
