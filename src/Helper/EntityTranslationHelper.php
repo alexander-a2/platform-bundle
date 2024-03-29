@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexanderA2\SymfonyAdminBundle\Helper;
+namespace AlexanderA2\PlatformBundle\Helper;
 
 use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
 use AlexanderA2\PhpDatasheet\Helper\StringHelper;

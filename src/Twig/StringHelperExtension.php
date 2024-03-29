@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexanderA2\SymfonyAdminBundle\Twig;
+namespace AlexanderA2\PlatformBundle\Twig;
 
 use AlexanderA2\PhpDatasheet\Helper\StringHelper;
 use DateTimeInterface;
