@@ -1,13 +1,5 @@
 {% extends '@Platform/layout/dashboard.html.twig' %}
 
-{% block meta_title %}
-    Admin Panel
-{% endblock %}
-
-{% block navbar_brand_title %}
-    Admin Panel
-{% endblock %}
-
 {% block page_sidebar %}
     <div class="py-2 px-2" id="sidebar-menu">
         {{ render_sidebar_menu(build_menu('admin_sidebar')) }}

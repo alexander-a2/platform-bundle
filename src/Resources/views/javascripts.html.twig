@@ -1,0 +1,11 @@
+<script src="{{ asset('bundles/basics/libs/jquery/jquery-3.7.1.js') }}"></script>
+<script src="{{ asset('bundles/basics/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('bundles/basics/libs/datepicker/jquery.datetimepicker.full.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('input[data-date-picker]').datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+        });
+    });
+</script>
