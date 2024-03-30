@@ -6,6 +6,7 @@ use AlexanderA2\PhpDatasheet\Helper\StringHelper;
 use AlexanderA2\PlatformBundle\Builder\EntityDataBuilder;
 use AlexanderA2\PlatformBundle\Builder\EntityDatasheetBuilder;
 use AlexanderA2\PlatformBundle\Builder\EntityFormBuilder;
+use AlexanderA2\PlatformBundle\Builder\MenuBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,6 @@ class CrudController extends AbstractController
         Request                $request,
         EntityDatasheetBuilder $entityDatasheetBuilder,
         TranslatorInterface    $translator,
-
     ): Response {
         $entityClassName = $request->get('entityClassName');
 
@@ -34,6 +34,15 @@ class CrudController extends AbstractController
             ]),
             'entityDatasheet' => $entityDatasheetBuilder->build($entityClassName),
             'entityClassName' => $entityClassName,
+            'pageControlsLeft' => [
+                MenuBuilder::buildMenuItem(
+                    'a2platform.admin.controls.add',
+                    $this->generateUrl('admin_crud_edit', ['entityClassName' => $entityClassName]),
+                    'primary',
+                    'plus-circle-fill',
+                    ['id' => 'admin-entity-crud-add'],
+                ),
+            ]
         ]);
     }
 
@@ -57,6 +66,32 @@ class CrudController extends AbstractController
             'data' => $entityDataBuilder->getData($entity),
             'entityClassName' => $entityClassName,
             'entityId' => $entityId,
+            'pageControlsLeft' => [
+                MenuBuilder::buildMenuItem(
+                    'a2platform.admin.controls.back',
+                    $this->generateUrl('admin_crud_index', ['entityClassName' => $entityClassName]),
+                    'secondary',
+                    'arrow-left-circle-fill',
+                    ['id' => 'admin-entity-crud-index'],
+                ),
+                MenuBuilder::buildMenuItem(
+                    'a2platform.admin.controls.edit',
+                    $this->generateUrl('admin_crud_edit', ['entityClassName' => $entityClassName, 'entityId' => $entityId]),
+                    'primary',
+                    'pencil-fill',
+                    ['id' => 'admin-entity-crud-edit'],
+                ),
+            ],
+            'pageControlsRight' => [
+                MenuBuilder::buildMenuItem(
+                    'a2platform.admin.controls.delete',
+                    $this->generateUrl('admin_crud_delete', ['entityClassName' => $entityClassName, 'entityId' => $entityId]),
+                    'danger',
+                    'trash-fill',
+                    ['id' => 'admin-entity-crud-delete'],
+                    true,
+                ),
+            ],
         ]);
     }
 
@@ -105,6 +140,25 @@ class CrudController extends AbstractController
             'form' => $form->createView(),
             'entityClassName' => $entityClassName,
             'entityId' => $entityId ?? null,
+            'pageControlsLeft' => [
+                MenuBuilder::buildMenuItem(
+                    'a2platform.admin.controls.back',
+                    $this->generateUrl('admin_crud_index', ['entityClassName' => $entityClassName]),
+                    'secondary',
+                    'arrow-left-circle-fill',
+                    ['id' => 'admin-entity-crud-index'],
+                ),
+            ],
+            'pageControlsRight' => $entityId ? [
+                MenuBuilder::buildMenuItem(
+                    'a2platform.admin.controls.delete',
+                    $this->generateUrl('admin_crud_delete', ['entityClassName' => $entityClassName, 'entityId' => $entityId]),
+                    'danger',
+                    'trash-fill',
+                    ['id' => 'admin-entity-crud-delete'],
+                    true,
+                ),
+            ] : [],
         ]);
     }
 

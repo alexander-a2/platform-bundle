@@ -9,6 +9,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuBuilder
 {
+    protected const DEFAULT_MENU_ITEM_TYPE = 'secondary';
+
     public function __construct(
         protected EventDispatcherInterface $eventDispatcher,
     ) {
@@ -20,5 +22,24 @@ class MenuBuilder
         $this->eventDispatcher->dispatch($event);
 
         return $event->getMenu();
+    }
+
+    public static function buildMenuItem(
+        string  $label,
+        string  $url,
+        string  $type = self::DEFAULT_MENU_ITEM_TYPE,
+        ?string $icon = null,
+        ?array  $attributes = [],
+        bool    $confirm = false,
+    ): ItemInterface {
+        if ($confirm) {
+            $attributes['onClick'] = 'if(!confirm("Are you sure?")) return false;';
+        }
+
+        return (new MenuFactory())->createItem($label)
+            ->setUri($url)
+            ->setExtra('type', $type)
+            ->setExtra('icon', $icon)
+            ->setAttributes($attributes);
     }
 }

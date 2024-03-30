@@ -5,22 +5,6 @@
 {% endblock %}
 
 {% block page_content %}
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <a href="javascript:history.back()"
-               class="btn btn-secondary">&larr; {{ 'a2platform.admin.controls.back'|trans }}</a>
-            <a href="{{ path('admin_crud_edit', {'entityClassName': entityClassName, 'entityId': entityId}) }}"
-               id="admin-entity-crud-edit"
-               class="btn btn-primary">{{ 'a2platform.admin.controls.edit'|trans }}</a>
-        </div>
-        <!-- put all elements right with bootstrap 5 -->
-        <div class="col-md-6 text-end">
-            <a href="{{ path('admin_crud_delete', {'entityClassName': entityClassName, 'entityId': entityId}) }}"
-               id="admin-entity-crud-delete"
-               class="btn btn-danger"
-               onClick="if(!confirm('{{ 'a2platform.admin.confirm.are_you_sure'|trans }}?')){return false;}">{{ 'a2platform.admin.controls.delete'|trans }}</a>
-        </div>
-    </div>
     <table id="admin-entity-view-table" class="table table-bordered table-hover table-striped">
         {% for item in data %}
             <tr>

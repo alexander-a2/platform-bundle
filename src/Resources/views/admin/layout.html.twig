@@ -5,14 +5,3 @@
         {{ render_sidebar_menu(build_menu('admin_sidebar')) }}
     </div>
 {% endblock %}
-
-{% block page_body %}
-    <div id="page-content">
-        {% block page_content_full %}
-            <div class="py-4 px-2">
-                <h3 class="mb-3">{% block page_title %}Admin panel{% endblock %}</h3>
-                {% block page_content %}Admin panel{% endblock %}
-            </div>
-        {% endblock %}
-    </div>
-{% endblock %}

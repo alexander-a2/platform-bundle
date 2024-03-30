@@ -60,6 +60,9 @@ class EntityFormBuilder
         }
         $formBuilder->add('submit', SubmitType::class, [
             'label' => 'a2platform.admin.controls.save',
+            'attr' => [
+                'class' => 'btn btn-primary px-5',
+            ],
         ]);
         $this->eventDispatcher->dispatch(new EntityFormBuildEvent($entityClassName, $formBuilder));
 
