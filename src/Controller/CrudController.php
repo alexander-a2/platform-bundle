@@ -32,8 +32,7 @@ class CrudController extends AbstractController
             'pageTitle' => $translator->trans('a2platform.admin.crud.index.page_title', [
                 '%entityName%' => StringHelper::getShortClassName($entityClassName),
             ]),
-            'entityDatasheet' => $entityDatasheetBuilder->build($entityClassName),
-            'entityClassName' => $entityClassName,
+            'datasheet' => $entityDatasheetBuilder->build($entityClassName),
             'pageControlsLeft' => [
                 MenuBuilder::buildMenuItem(
                     'a2platform.admin.controls.add',
