@@ -29,20 +29,29 @@ class MenuBuilder
     public function addMenuItems(ItemInterface $menu, array $data, array $parametersData = []): void
     {
         foreach ($data as $item) {
-            $menu->addChild(self::buildMenuItem(
+            $menuItem = self::buildMenuItem(
                 $item['label'],
-                $this->routeHelper->buildRoute($item['routeName'], $item['routeParameters'], $parametersData),
+                isset($item['routeName']) ? $this->routeHelper->buildRoute(
+                    $item['routeName'],
+                    $item['routeParameters'] ?? [],
+                    $parametersData,
+                ) : '',
                 $item['type'] ?? 'primary',
                 $item['icon'] ?? '',
                 $item['attributes'] ?? [],
                 $item['hasConfirmation'] ?? false,
-            ));
+            );
+
+            if ($item['children'] ?? []) {
+                $this->addMenuItems($menuItem, $item['children'], $parametersData);
+            }
+            $menu->addChild($menuItem);
         }
     }
 
     public static function buildMenuItem(
         string  $label,
-        string  $url,
+        string  $url = '',
         string  $type = self::DEFAULT_MENU_ITEM_TYPE,
         ?string $icon = null,
         ?array  $attributes = [],
