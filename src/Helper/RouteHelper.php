@@ -6,12 +6,35 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
-class ControllerHelper
+class RouteHelper
 {
     public function __construct(
         protected RequestStack    $requestStack,
         protected RouterInterface $router,
     ) {
+    }
+
+    public function getCurrentRoute(): string
+    {
+        return $this->requestStack->getCurrentRequest()->get('_route');
+    }
+
+    public function getCurrentController(): string
+    {
+        $controllerWithAction = $this->requestStack->getCurrentRequest()->get('_controller');
+
+        return substr($controllerWithAction, 0, strpos($controllerWithAction, '::'));
+    }
+
+    public function buildRoute(string $routeName, array $parametersMapping = [], array $parametersData = []): string
+    {
+        $parameters = [];
+
+        foreach ($parametersMapping as $parameterName => $parameterKey) {
+            $parameters[$parameterName] = $parametersData[$parameterKey] ?? null;
+        }
+
+        return $this->router->generate($routeName, $parameters);
     }
 
     public function redirectBack($addToReferer = []): RedirectResponse

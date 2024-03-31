@@ -44,7 +44,11 @@
         <aside id="collapseExample"
                class="collapse col-sm-5 col-md-4 col-lg-3 col-xl-3 col-xxl-2 d-sm-block flex-grow-sm-1 flex-shrink-1 flex-grow-0 sticky-top pb-sm-0">
             <div class="h-100 sticky-top {% block sidebar_classes %}bg-light{% endblock %}">
-                {% block page_sidebar %}{% endblock %}
+                {% block page_sidebar %}
+                    <div class="py-2 px-2" id="sidebar-menu">
+                        {{ render_sidebar_menu(build_menu('sidebar_menu')) }}
+                    </div>
+                {% endblock %}
             </div>
         </aside>
         <main class="col overflow-auto h-100">
@@ -53,10 +57,14 @@
                     {% block page_content_full %}
                         <div class="py-4 px-2">
                             <h3 class="mb-4">{% block page_title %}{% endblock %}</h3>
-                            <div class="row mb-4">
-                                <div class="col-md-6">{% include '@Platform/helper/controls.html.twig' with {'controls': pageControlsLeft ?? [] } %}</div>
-                                <div class="col-md-6 text-end">{% include '@Platform/helper/controls.html.twig' with {'controls': pageControlsRight ?? [] } %}</div>
-                            </div>
+                            {% set pageControlsLeft = build_menu('page_controls_left') %}
+                            {% set pageControlsRight = build_menu('page_controls_right') %}
+                            {% if pageControlsLeft.children|length or pageControlsRight.children|length %}
+                                <div class="row mb-4">
+                                    <div class="col-md-6">{% include '@Platform/helper/controls.html.twig' with {'controls': pageControlsLeft } %}</div>
+                                    <div class="col-md-6 text-end">{% include '@Platform/helper/controls.html.twig' with {'controls': pageControlsRight } %}</div>
+                                </div>
+                            {% endif %}
                             {% block page_content %}{% endblock %}
                         </div>
                     {% endblock %}

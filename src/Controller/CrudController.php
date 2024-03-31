@@ -94,6 +94,22 @@ class CrudController extends AbstractController
         ]);
     }
 
+    #[Route("create", name: "create")]
+    public function createAction(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        EntityFormBuilder      $formBuilder,
+        TranslatorInterface    $translator,
+    ): Response
+    {
+        return $this->editAction(
+            $request,
+            $entityManager,
+            $formBuilder,
+            $translator,
+        );
+    }
+
     #[Route("edit", name: "edit")]
     public function editAction(
         Request                $request,

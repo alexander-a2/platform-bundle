@@ -1,0 +1,42 @@
+admin:
+  page_controls_left:
+    admin_crud_index:
+      - label: 'Add'
+        routeName: 'admin_crud_create'
+        routeParameters: { entityClassName: entityClassName }
+        icon: 'plus-circle-fill'
+        attributes: { id: 'admin-entity-crud-add' }
+    admin_crud_view:
+      - label: 'Back'
+        routeName: 'admin_crud_index'
+        routeParameters: { entityClassName: entityClassName }
+        icon: 'arrow-left-circle-fill'
+        type: 'secondary'
+      - label: 'Edit'
+        routeName: 'admin_crud_edit'
+        routeParameters: { entityClassName: entityClassName, entityId: entityId }
+        icon: 'pencil-fill'
+        attributes: { id: 'admin-entity-crud-edit' }
+    admin_crud_edit:
+      - label: 'Back'
+        routeName: 'admin_crud_view'
+        routeParameters: { entityClassName: entityClassName, entityId: entityId }
+        icon: 'arrow-left-circle-fill'
+        type: 'secondary'
+  page_controls_right:
+    admin_crud_view:
+      - label: 'Delete'
+        routeName: 'admin_crud_delete'
+        routeParameters: { entityClassName: entityClassName, entityId: entityId }
+        icon: 'trash-fill'
+        type: 'danger'
+        hasConfirmation: true
+        attributes: { id: 'admin-entity-crud-delete' }
+    admin_crud_edit:
+      - label: 'Delete'
+        routeName: 'admin_crud_delete'
+        routeParameters: { entityClassName: entityClassName, entityId: entityId }
+        icon: 'trash-fill'
+        type: 'danger'
+        hasConfirmation: true
+        attributes: { id: 'admin-entity-crud-delete' }

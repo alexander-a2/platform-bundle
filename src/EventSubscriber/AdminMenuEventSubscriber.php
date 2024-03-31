@@ -4,30 +4,47 @@ namespace AlexanderA2\PlatformBundle\EventSubscriber;
 
 use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
 use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Builder\MenuBuilder;
+use AlexanderA2\PlatformBundle\Controller\AdminController;
+use AlexanderA2\PlatformBundle\Controller\CrudController;
 use AlexanderA2\PlatformBundle\Event\MenuBuildEvent;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use AlexanderA2\PlatformBundle\Helper\RouteHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class AdminMenuEventSubscriber implements EventSubscriberInterface
 {
-    private const ADMIN_SIDEBAR_MENU_NAME = 'admin_sidebar';
+    protected const MENU_NAME = 'sidebar_menu';
+    protected const SUPPORTED_CONTROLLERS = [
+        AdminController::class,
+        CrudController::class,
+    ];
+    protected const PAGE_CONTROLS_MENU = [
+        'page_controls_left',
+        'page_controls_right',
+    ];
+
+    protected array $menuData = [];
 
     public function __construct(
         protected EntityHelper    $entityHelper,
         protected RouterInterface $router,
-//        protected EntityManagerInterface $entityManager,
-//        protected ParameterBagInterface  $parameters,
-//        protected TranslatorInterface    $translator,
-    )
-    {
+        protected RouteHelper     $routeHelper,
+        protected RequestStack    $requestStack,
+    ) {
+        $yamlFilePath = __DIR__ . '/../Resources/config/menu.yaml';
+        $this->menuData = Yaml::parse(file_get_contents($yamlFilePath));
     }
 
-    public function addEntityItems(MenuBuildEvent $event): void
+    public function onSidebarMenuBuild(MenuBuildEvent $event): void
     {
-        if ($event->getMenu()->getName() !== self::ADMIN_SIDEBAR_MENU_NAME) {
+        if ($event->getMenu()->getName() !== self::MENU_NAME) {
+            return;
+        }
+
+        if (!in_array($this->routeHelper->getCurrentController(), self::SUPPORTED_CONTROLLERS)) {
             return;
         }
 
@@ -35,23 +52,7 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
             ->addChild('database')
             ->setLabel('a2platform.admin.menu.database.title')
             ->setExtra('icon', 'bi bi-grid-fill');
-//        $general->addChild('about')
-//            ->setLabel('website.menu.general.about')
-//            ->setUri($this->router->generate('about'));
-//
-//
-//        $event->getMenu()->addChild(self::HOME_PAGE_ITEM_NAME)
-//            ->setLabel(self::HOME_PAGE_ITEM_NAME)
-//            ->
-//            ->setUri('/');
-//        $event->getMenu()->addChild(self::ADMIN_PAGE_ITEM_NAME)
-//            ->setLabel(self::ADMIN_PAGE_ITEM_NAME)
-//            ->setUri($this->router->generate('admin_index'));
-//
-//        $event->getMenu()->addChild(self::MENU_ENTITY_LIST_GROUP_TITLE, [
-//            'label' => self::MENU_ENTITY_LIST_GROUP_TITLE,
-//        ]);
-//
+
         foreach ($this->entityHelper->getEntityList() as $objectClassName) {
             $databaseGroup
                 ->addChild($objectClassName)
@@ -59,6 +60,36 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
                 ->setUri($this->router->generate('admin_crud_index', [
                     'entityClassName' => $objectClassName,
                 ]));
+        }
+    }
+
+    public function onPageControlsBuild(MenuBuildEvent $event): void
+    {
+        if (!in_array($event->getMenu()->getName(), self::PAGE_CONTROLS_MENU)) {
+            return;
+        }
+
+        if (!in_array($this->routeHelper->getCurrentController(), self::SUPPORTED_CONTROLLERS)) {
+            return;
+        }
+        $menu = $event->getMenu();
+        $currentRoute = $this->routeHelper->getCurrentRoute();
+
+        if (isset($this->menuData['admin'][$event->getMenu()->getName()][$currentRoute])) {
+            foreach ($this->menuData['admin'][$event->getMenu()->getName()][$currentRoute] as $item) {
+                $menu->addChild(MenuBuilder::buildMenuItem(
+                    $item['label'],
+                    $this->routeHelper->buildRoute(
+                        $item['routeName'],
+                        $item['routeParameters'],
+                        $this->requestStack->getCurrentRequest()->query->all(),
+                    ),
+                    $item['type'] ?? 'primary',
+                    $item['icon'] ?? '',
+                    $item['attributes'] ?? [],
+                    $item['hasConfirmation'] ?? false,
+                ));
+            }
         }
     }
 
@@ -87,7 +118,8 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
     {
         return [
             MenuBuildEvent::class => [
-                ['addEntityItems', 500],
+                ['onSidebarMenuBuild'],
+                ['onPageControlsBuild'],
 //                ['addLocaleItems', -500],
             ],
         ];
