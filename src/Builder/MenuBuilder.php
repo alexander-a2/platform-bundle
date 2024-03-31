@@ -3,6 +3,7 @@
 namespace AlexanderA2\PlatformBundle\Builder;
 
 use AlexanderA2\PlatformBundle\Event\MenuBuildEvent;
+use AlexanderA2\PlatformBundle\Helper\RouteHelper;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -13,6 +14,7 @@ class MenuBuilder
 
     public function __construct(
         protected EventDispatcherInterface $eventDispatcher,
+        protected RouteHelper              $routeHelper,
     ) {
     }
 
@@ -22,6 +24,20 @@ class MenuBuilder
         $this->eventDispatcher->dispatch($event);
 
         return $event->getMenu();
+    }
+
+    public function addMenuItems(ItemInterface $menu, array $data, array $parametersData = []): void
+    {
+        foreach ($data as $item) {
+            $menu->addChild(self::buildMenuItem(
+                $item['label'],
+                $this->routeHelper->buildRoute($item['routeName'], $item['routeParameters'], $parametersData),
+                $item['type'] ?? 'primary',
+                $item['icon'] ?? '',
+                $item['attributes'] ?? [],
+                $item['hasConfirmation'] ?? false,
+            ));
+        }
     }
 
     public static function buildMenuItem(

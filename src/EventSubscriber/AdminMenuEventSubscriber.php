@@ -33,6 +33,7 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
         protected RouterInterface $router,
         protected RouteHelper     $routeHelper,
         protected RequestStack    $requestStack,
+        protected MenuBuilder     $menuBuilder,
     ) {
         $yamlFilePath = __DIR__ . '/../Resources/config/menu.yaml';
         $this->menuData = Yaml::parse(file_get_contents($yamlFilePath));
@@ -72,25 +73,11 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
         if (!in_array($this->routeHelper->getCurrentController(), self::SUPPORTED_CONTROLLERS)) {
             return;
         }
-        $menu = $event->getMenu();
-        $currentRoute = $this->routeHelper->getCurrentRoute();
-
-        if (isset($this->menuData['admin'][$event->getMenu()->getName()][$currentRoute])) {
-            foreach ($this->menuData['admin'][$event->getMenu()->getName()][$currentRoute] as $item) {
-                $menu->addChild(MenuBuilder::buildMenuItem(
-                    $item['label'],
-                    $this->routeHelper->buildRoute(
-                        $item['routeName'],
-                        $item['routeParameters'],
-                        $this->requestStack->getCurrentRequest()->query->all(),
-                    ),
-                    $item['type'] ?? 'primary',
-                    $item['icon'] ?? '',
-                    $item['attributes'] ?? [],
-                    $item['hasConfirmation'] ?? false,
-                ));
-            }
-        }
+        $this->menuBuilder->addMenuItems(
+            $event->getMenu(),
+            $this->menuData['admin'][$event->getMenu()->getName()][$this->routeHelper->getCurrentRoute()] ?? [],
+            $this->requestStack->getCurrentRequest()->query->all(),
+        );
     }
 
 //    public function addLocaleItems(MenuBuildEvent $event): void
