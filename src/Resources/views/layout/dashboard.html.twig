@@ -60,7 +60,7 @@
                             {% set pageControlsLeft = build_menu('page_controls_left') %}
                             {% set pageControlsRight = build_menu('page_controls_right') %}
                             {% if pageControlsLeft.children|length or pageControlsRight.children|length %}
-                                <div class="row mb-4">
+                                <div class="row mb-4" id="page-controls">
                                     <div class="col-md-6">{% include '@Platform/helper/controls.html.twig' with {'controls': pageControlsLeft } %}</div>
                                     <div class="col-md-6 text-end">{% include '@Platform/helper/controls.html.twig' with {'controls': pageControlsRight } %}</div>
                                 </div>
