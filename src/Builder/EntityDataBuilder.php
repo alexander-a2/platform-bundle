@@ -17,12 +17,15 @@ class EntityDataBuilder
     ) {
     }
 
-    public function getData($object): array
+    public function getData($object, array $excludeData = []): array
     {
         $data = [];
         $entityClassName = get_class($object);
 
         foreach ($this->entityHelper->getEntityFields($entityClassName) as $fieldName => $fieldType) {
+            if (in_array($fieldName, $excludeData, true)) {
+                continue;
+            }
             $data[] = [
                 'name' => $fieldName,
                 'value' => $this->getReadableValue($object, $fieldName, $fieldType),
