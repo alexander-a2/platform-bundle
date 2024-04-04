@@ -1,7 +1,7 @@
 {% if controls is defined and controls|length > 0 %}
     {% for control in controls %}
         <a href="{{ control.uri }}"
-           class="btn btn-outline-{{ control.extra('type') }} px-4"
+           class="btn btn-{{ control.extra('type') }} px-4"
         {% for attribute, value in control.attributes %}
             {{ attribute }}="{{ value }}"
         {% endfor %}
