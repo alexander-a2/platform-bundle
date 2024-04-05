@@ -12,7 +12,10 @@ class DatePickerFormType extends AbstractType
 {
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['attr']['data-date-picker'] = 'Y-m-d';
+        $view->vars['attr'] = [
+            'data-date-picker' => 'Y-m-d',
+            'autocomplete' => 'off',
+        ];
     }
 
     public function configureOptions(OptionsResolver $resolver)
