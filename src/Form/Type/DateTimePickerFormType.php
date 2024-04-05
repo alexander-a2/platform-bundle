@@ -9,6 +9,9 @@ class DateTimePickerFormType extends DatePickerFormType
 {
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['attr']['data-date-time-picker'] = 'Y-m-d H:i';
+        $view->vars['attr'] = [
+            'data-date-time-picker' => 'Y-m-d H:i',
+            'autocomplete' => 'off',
+        ];
     }
 }
