@@ -31,8 +31,8 @@ class MenuBuilder
         foreach ($data as $item) {
             $menuItem = self::buildMenuItem(
                 $item['label'],
-                isset($item['routeName']) ? $this->routeHelper->buildRoute(
-                    $item['routeName'],
+                isset($item['route']) ? $this->routeHelper->buildRoute(
+                    $item['route'],
                     $item['routeParameters'] ?? [],
                     $parametersData,
                 ) : '',

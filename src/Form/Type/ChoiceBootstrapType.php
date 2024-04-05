@@ -6,17 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChoiceSearchableType extends ChoiceBootstrapType
+class ChoiceBootstrapType extends AbstractType
 {
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['attr']['data-live-search'] = '1';
+        $view->vars['attr']['class'] = 'selectpicker';
     }
 
     public function getParent(): string
     {
         return ChoiceType::class;
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return 'choice_bootstrap_widget';
     }
 }

@@ -12,7 +12,7 @@ class StringHelperExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('readable', [$this, 'readable']),
+            new TwigFilter('toReadable', [$this, 'toReadable']),
             new TwigFilter('readableTitle', [$this, 'getReadableTitle']),
             new TwigFilter('urlize', [$this, 'urlize']),
             new TwigFilter('toCamelCase', [$this, 'toCamelCase']),
@@ -25,7 +25,7 @@ class StringHelperExtension extends AbstractExtension
         ];
     }
 
-    public function readable($input): string
+    public function toReadable($input): string
     {
         return StringHelper::toReadable($input);
     }
