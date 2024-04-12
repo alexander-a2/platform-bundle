@@ -1,0 +1,11 @@
+<script src="{{ asset('bundles/datasheet/javascript/datasheet.js') }}"></script>
+<script>
+    document
+        .querySelectorAll('[data-datasheet]')
+        .forEach(element => new Datasheet(element, {
+            'pagination': {
+                'first_page': '{{ 'a2platform.datasheet.pagination.first_page'|trans }}',
+                'last_page': '{{ 'a2platform.datasheet.pagination.last_page'|trans }}',
+            }
+        }));
+</script>

@@ -2,8 +2,8 @@
 
 namespace AlexanderA2\PlatformBundle\EventSubscriber;
 
-use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
-use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
 use AlexanderA2\PlatformBundle\Builder\MenuBuilder;
 use AlexanderA2\PlatformBundle\Controller\AdminController;
 use AlexanderA2\PlatformBundle\Controller\CrudController;

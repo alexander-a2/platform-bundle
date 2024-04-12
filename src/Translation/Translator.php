@@ -2,7 +2,7 @@
 
 namespace AlexanderA2\PlatformBundle\Translation;
 
-use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

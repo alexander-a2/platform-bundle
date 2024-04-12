@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace AlexanderA2\PlatformBundle\Builder;
 
-use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
 use AlexanderA2\PlatformBundle\Event\EntityFormBuildEvent;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

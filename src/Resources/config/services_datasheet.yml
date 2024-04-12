@@ -1,0 +1,57 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    AlexanderA2\PlatformBundle\Datasheet\:
+        resource: '../../Datasheet/'
+
+    _instanceof:
+        AlexanderA2\PlatformBundle\Datasheet\DataReader\DataReaderInterface:
+            tags: [ 'datasheet.data_reader' ]
+        AlexanderA2\PlatformBundle\Datasheet\Builder\Column\ColumnBuilderInterface:
+            tags: [ 'datasheet.column_builder' ]
+        AlexanderA2\PlatformBundle\Datasheet\FilterApplier\FilterApplierInterface:
+            tags: [ 'datasheet.filter_applier' ]
+
+    AlexanderA2\PlatformBundle\Datasheet\Resolver\DataReaderResolver:
+        bind:
+            $services: !tagged_iterator datasheet.data_reader
+
+    AlexanderA2\PlatformBundle\Datasheet\Resolver\ColumnBuilderResolver:
+        bind:
+            $services: !tagged_iterator datasheet.column_builder
+
+    AlexanderA2\PlatformBundle\Datasheet\Resolver\FilterApplierResolver:
+        bind:
+            $services: !tagged_iterator datasheet.filter_applier
+
+    # Data readers
+#    AlexanderA2\PlatformBundle\Datasheet\DataReader\QueryBuilderDataReader:
+#        tags: [ { name: 'datasheet.data_reader', priority: 100 } ]
+#    AlexanderA2\PlatformBundle\Datasheet\DataReader\ArrayDataReader:
+#        tags: [ { name: 'datasheet.data_reader', priority: 90 } ]
+
+    # Column builders
+#    AlexanderA2\PlatformBundle\Datasheet\Builder\Column\ArrayDatasheetColumnBuilder:
+#        tags: [ 'datasheet.column_builder' ]
+#    AlexanderA2\PlatformBundle\Datasheet\Builder\Column\QueryBuilderDatasheetColumnBuilder:
+#        tags: [ 'datasheet.column_builder' ]
+
+    # Filter appliers
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\ArrayDatasheet\ColumnFilter\ContainsFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\ArrayDatasheet\ColumnFilter\EqualsFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\ArrayDatasheet\DatasheetFilter\PaginationFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\ArrayDatasheet\DatasheetFilter\SortFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\QueryBuilderDatasheet\ColumnFilter\ContainsFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\QueryBuilderDatasheet\ColumnFilter\EqualsFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\QueryBuilderDatasheet\DatasheetFilter\PaginationFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]
+#    AlexanderA2\PlatformBundle\Datasheet\FilterApplier\QueryBuilderDatasheet\DatasheetFilter\SortFilterApplier:
+#        tags: [ 'datasheet.filter_applier' ]

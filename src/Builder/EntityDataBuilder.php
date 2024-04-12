@@ -2,8 +2,8 @@
 
 namespace AlexanderA2\PlatformBundle\Builder;
 
-use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
-use AlexanderA2\PhpDatasheet\Helper\ObjectHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\ObjectHelper;
 use AlexanderA2\PlatformBundle\Event\EntityDataBuildEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;

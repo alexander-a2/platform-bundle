@@ -14,6 +14,7 @@ class PlatformExtension extends Extension implements PrependExtensionInterface
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('services_datasheet.yml');
         $this->getConfiguration($configs, $container);
     }
 

@@ -1,0 +1,49 @@
+{# {{ dump(datasheet) }}#}
+{% set recordsTotal = datasheet.totalRecordsFiltered %}
+{% set recordsPerPage = datasheet.filter('pgn').parameter('recordsPerPage') %}
+{% set pagesTotal = (recordsTotal / recordsPerPage)|round(0, 'ceil') %}
+{% set currentPage = datasheet.filter('pgn').parameter('currentPage') %}
+
+<div data-datasheet="{{ datasheet.name }}" data-datasheet-filters-key="{{ datasheet.queryKey('datasheet_filters') }}">
+    <form action="?" method="GET" data-datasheet-form="{{ datasheet.name }}">
+        {% include '@Platform/datasheet/datasheet_filters.html.twig' %}
+        <table class="table table-striped table-hover">
+            <thead>
+            {% for column in datasheet.columns %}
+
+                <th {{ column.width ? 'width='~column.width~'' : '' }}>{{ column.title }}</th>
+            {% endfor %}
+            </thead>
+
+            {#            {% include 'datasheet/column_filters.html.twig' %} #}
+
+            {% for record in datasheet.data %}
+                <tr>
+                    {% for column in datasheet.columns %}
+                        <td>
+                            {{ column.getContent(record)|raw }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <div>
+            <nav>
+                <ul class="pagination m-2"
+                    data-datasheet-pagination="{{ datasheet.name }}"
+                    data-datasheet-pagination-records-total="{{ recordsTotal }}"
+                    data-datasheet-pagination-records-per-page="{{ recordsPerPage }}"
+                    data-datasheet-pagination-pages-total="{{ pagesTotal }}"
+                    data-datasheet-pagination-current-page="{{ currentPage }}"
+                >
+                </ul>
+                <div class="text-muted">
+                    {{ 'a2platform.datasheet.pagination.records_total'|trans }}: {{ recordsTotal }},
+                    {{ 'a2platform.datasheet.pagination.records_per_page'|trans }}: {{ recordsPerPage }},
+                    {{ 'a2platform.datasheet.pagination.pages_total'|trans }}: {{ pagesTotal }},
+                    {{ 'a2platform.datasheet.pagination.current_page'|trans }}: {{ currentPage }}
+                </div>
+            </nav>
+        </div>
+    </form>
+</div>

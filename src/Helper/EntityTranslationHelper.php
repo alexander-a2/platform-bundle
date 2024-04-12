@@ -2,8 +2,8 @@
 
 namespace AlexanderA2\PlatformBundle\Helper;
 
-use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
-use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Contracts\Translation\TranslatorInterface;

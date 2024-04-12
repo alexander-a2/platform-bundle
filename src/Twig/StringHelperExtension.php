@@ -2,7 +2,7 @@
 
 namespace AlexanderA2\PlatformBundle\Twig;
 
-use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
 use DateTimeInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

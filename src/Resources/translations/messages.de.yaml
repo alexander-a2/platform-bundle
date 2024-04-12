@@ -1,0 +1,32 @@
+# deutsch
+a2platform:
+  admin:
+    menu:
+      database:
+        title: 'Datenbank'
+    controls:
+      add: 'Hinzufügen'
+      back: 'Zurück'
+      edit: 'Bearbeiten'
+      delete: 'Löschen'
+      save: 'Speichern'
+    confirm:
+      are_you_sure: 'Sind Sie sicher?'
+    crud:
+      index:
+        page_title: 'Liste von «%entityName%»'
+      view:
+        page_title: '«%entityName%» #%entityId%'
+      create:
+        page_title: 'Neues «%entityName%» erstellen'
+      edit:
+        page_title: '«%entityName%» #%entityId% bearbeiten'
+  datasheet:
+    pagination:
+      first_page: 'Erste Seite'
+      last_page: 'Letzte Seite'
+      records_total: 'Gesamtanzahl der Datensätze'
+      records_per_page: 'Datensätze pro Seite'
+      pages_total: 'Gesamtanzahl der Seiten'
+      current_page: 'Aktuelle Seite'
+    empty: 'leer'

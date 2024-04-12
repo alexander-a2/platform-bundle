@@ -2,7 +2,7 @@
 
 namespace AlexanderA2\PlatformBundle\Controller;
 
-use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
 use AlexanderA2\PlatformBundle\Builder\EntityDataBuilder;
 use AlexanderA2\PlatformBundle\Builder\EntityDatasheetBuilder;
 use AlexanderA2\PlatformBundle\Builder\EntityFormBuilder;

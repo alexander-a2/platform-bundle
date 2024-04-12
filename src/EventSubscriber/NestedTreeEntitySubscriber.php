@@ -2,12 +2,12 @@
 
 namespace AlexanderA2\PlatformBundle\EventSubscriber;
 
-use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
-use AlexanderA2\PhpDatasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
 use AlexanderA2\SymfonyAdminBundle\Event\EntityDataBuildEvent;
 use AlexanderA2\SymfonyAdminBundle\Event\EntityDatasheetBuildEvent;
 use AlexanderA2\SymfonyAdminBundle\Event\EntityFormBuildEvent;
-use AlexanderA2\SymfonyDatasheetBundle\Builder\Column\NestedTreeDatasheetColumnBuilder;
+use AlexanderA2\PlatformBundle\Datasheet\Builder\Column\NestedTreeDatasheetColumnBuilder;
 use App\Entity\Employee;
 use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;

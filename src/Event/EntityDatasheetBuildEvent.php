@@ -2,7 +2,7 @@
 
 namespace AlexanderA2\PlatformBundle\Event;
 
-use AlexanderA2\PhpDatasheet\DatasheetInterface;
+use AlexanderA2\PlatformBundle\Datasheet\DatasheetInterface;
 
 class EntityDatasheetBuildEvent
 {

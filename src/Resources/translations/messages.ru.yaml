@@ -1,0 +1,31 @@
+a2platform:
+  admin:
+    menu:
+      database:
+        title: 'База данных'
+    controls:
+      add: 'Добавить'
+      back: 'Назад'
+      edit: 'Редактировать'
+      delete: 'Удалить'
+      save: 'Сохранить'
+    confirm:
+      are_you_sure: 'Вы уверены?'
+    crud:
+      index:
+        page_title: 'Список «%entityName%»'
+      view:
+        page_title: '«%entityName%» #%entityId%'
+      create:
+        page_title: 'Создать новый «%entityName%»'
+      edit:
+        page_title: 'Редактировать «%entityName%» #%entityId%'
+  datasheet:
+    pagination:
+      first_page: 'Первая страница'
+      last_page: 'Последняя страница'
+      records_total: 'Всего записей'
+      records_per_page: 'Записей на странице'
+      pages_total: 'Всего страниц'
+      current_page: 'Текущая страница'
+    empty: 'пусто'

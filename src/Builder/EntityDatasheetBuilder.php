@@ -2,10 +2,10 @@
 
 namespace AlexanderA2\PlatformBundle\Builder;
 
-use AlexanderA2\PhpDatasheet\Datasheet;
-use AlexanderA2\PhpDatasheet\DatasheetInterface;
-use AlexanderA2\PhpDatasheet\Helper\EntityHelper;
-use AlexanderA2\PhpDatasheet\Helper\ObjectHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Datasheet;
+use AlexanderA2\PlatformBundle\Datasheet\DatasheetInterface;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
+use AlexanderA2\PlatformBundle\Datasheet\Helper\ObjectHelper;
 use AlexanderA2\PlatformBundle\Event\EntityDatasheetBuildEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
