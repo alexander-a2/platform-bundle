@@ -7,20 +7,17 @@ use AlexanderA2\PlatformBundle\Helper\RouteHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LocaleController extends AbstractController
 {
-    public function __construct(
-        protected array $availableLocales = [],
-    ) {
-    }
-
     #[Route('set-locale/{locale}', name: 'set_locale')]
     public function setLocaleAction(
         EntityManagerInterface $entityManager,
         RouteHelper            $controllerHelper,
+        ParameterBagInterface  $parameters,
                                $locale,
     ): Response {
         $user = $this->getUser();
@@ -29,7 +26,7 @@ class LocaleController extends AbstractController
             throw new Exception('User entity must implement UserHasLocaleInterface');
         }
 
-        if (in_array($locale, $this->availableLocales)) {
+        if (in_array($locale, $this->getParameter('kernel.enabled_locales'))) {
             $user->setLocale($locale);
             $entityManager->flush();
         }
