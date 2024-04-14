@@ -7,7 +7,6 @@ use AlexanderA2\PlatformBundle\Helper\RouteHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,7 +16,6 @@ class LocaleController extends AbstractController
     public function setLocaleAction(
         EntityManagerInterface $entityManager,
         RouteHelper            $controllerHelper,
-        ParameterBagInterface  $parameters,
                                $locale,
     ): Response {
         $user = $this->getUser();
