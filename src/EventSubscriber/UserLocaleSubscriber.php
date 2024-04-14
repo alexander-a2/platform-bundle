@@ -19,13 +19,6 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::CONTROLLER => 'setLocale',
-        ];
-    }
-
     public function setLocale(ControllerEvent $event): void
     {
         if (!$this->security->getUser() instanceof UserHasLocaleInterface) {
@@ -38,5 +31,12 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         }
         $event->getRequest()->setLocale($userLocale);
         $this->translator->setLocale($userLocale);
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::CONTROLLER => 'setLocale',
+        ];
     }
 }
