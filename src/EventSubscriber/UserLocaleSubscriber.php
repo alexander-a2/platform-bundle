@@ -28,7 +28,15 @@ class UserLocaleSubscriber implements EventSubscriberInterface
 
     public function setLocale(ControllerEvent $event): void
     {
-        if(!$this->security->getUser() instanceof UserHasLocaleInterface){
+        if (!$this->security->getUser() instanceof UserHasLocaleInterface) {
+            return;
         }
+        $userLocale = $this->security->getUser()->getLocale();
+
+        if (!in_array($userLocale, $this->parameters->get('kernel.enabled_locales'))) {
+            return;
+        }
+        $event->getRequest()->setLocale($userLocale);
+        $this->translator->setLocale($userLocale);
     }
 }
