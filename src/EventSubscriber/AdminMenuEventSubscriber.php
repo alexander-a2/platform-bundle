@@ -2,8 +2,7 @@
 
 namespace AlexanderA2\PlatformBundle\EventSubscriber;
 
-use AlexanderA2\PlatformBundle\Datasheet\Helper\EntityHelper;
-use AlexanderA2\PlatformBundle\Datasheet\Helper\StringHelper;
+use AlexanderA2\PlatformBundle\Builder\EntityListMenuBuilder;
 use AlexanderA2\PlatformBundle\Builder\MenuBuilder;
 use AlexanderA2\PlatformBundle\Controller\AdminController;
 use AlexanderA2\PlatformBundle\Controller\CrudController;
@@ -25,15 +24,14 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
         'page_controls_left',
         'page_controls_right',
     ];
-
     protected array $menuData = [];
 
     public function __construct(
-        protected EntityHelper    $entityHelper,
-        protected RouterInterface $router,
-        protected RouteHelper     $routeHelper,
-        protected RequestStack    $requestStack,
-        protected MenuBuilder     $menuBuilder,
+        protected RouterInterface       $router,
+        protected RouteHelper           $routeHelper,
+        protected RequestStack          $requestStack,
+        protected MenuBuilder           $menuBuilder,
+        protected EntityListMenuBuilder $entityListMenuBuilder,
     ) {
         $yamlFilePath = __DIR__ . '/../Resources/config/menu.yaml';
         $this->menuData = Yaml::parse(file_get_contents($yamlFilePath));
@@ -48,20 +46,12 @@ class AdminMenuEventSubscriber implements EventSubscriberInterface
         if (!in_array($this->routeHelper->getCurrentController(), self::SUPPORTED_CONTROLLERS)) {
             return;
         }
-
-        $databaseGroup = $event->getMenu()
+        $event->getMenu()
             ->addChild('database')
             ->setLabel('a2platform.admin.menu.database.title')
             ->setExtra('icon', 'bi bi-grid-fill');
-
-        foreach ($this->entityHelper->getEntityList() as $objectClassName) {
-            $databaseGroup
-                ->addChild($objectClassName)
-                ->setLabel(StringHelper::getShortClassName($objectClassName))
-                ->setUri($this->router->generate('admin_crud_index', [
-                    'entityClassName' => $objectClassName,
-                ]));
-        }
+        $this->entityListMenuBuilder
+            ->addMenItems($event->getMenu()->getChild('database'));
     }
 
     public function onPageControlsBuild(MenuBuildEvent $event): void
