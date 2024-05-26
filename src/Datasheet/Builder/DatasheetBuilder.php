@@ -38,6 +38,8 @@ class DatasheetBuilder
 
     public function build(DatasheetInterface $datasheet, array $parameters = []): DatasheetInterface
     {
+        $event = new DatasheetBuildEvent($datasheet);
+        $this->eventDispatcher->dispatch($event);
         $this->resolveDataReader($datasheet);
         $this->buildColumns($datasheet);
         $this->updateCustomizedColumns($datasheet);
@@ -49,8 +51,6 @@ class DatasheetBuilder
         $this->applyFilters($datasheet);
         $this->buildFilteredTotals($datasheet);
         $this->readData($datasheet);
-        $event = new DatasheetBuildEvent($datasheet);
-        $this->eventDispatcher->dispatch($event);
 
         return $event->getDatasheet();
     }
